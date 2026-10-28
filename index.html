@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Marcenário</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&amp;family=Barlow+Condensed:wght@600;700&amp;display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F1EFEC;--card:#fff;--line:#D9D5CF;--tx:#1E1E1E;--mu:#5E5A55;--bar:#C25E0C;--ortx:#A64A00;--on:#1A1A1A;--or:#E07B26;--ok:#2F7D5B;--neg:#B3392E;--shade:rgba(0,0,0,.45);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1F1F1F;--card:#2D2D2D;--line:#3F3F3F;--tx:#F2F2F2;--mu:#A8A8A8;--bar:#E07B26;--ortx:#E07B26;--ok:#5CC28A;--neg:#F08A7E;--shade:rgba(0,0,0,.65)}}
+:root[data-theme="dark"]{--bg:#1F1F1F;--card:#2D2D2D;--line:#3F3F3F;--tx:#F2F2F2;--mu:#A8A8A8;--bar:#E07B26;--ortx:#E07B26;--ok:#5CC28A;--neg:#F08A7E;--shade:rgba(0,0,0,.65)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:400 16px/1.4 'Barlow',system-ui,sans-serif}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.d{font-family:'Barlow Condensed','Barlow',system-ui,sans-serif;font-weight:700}
+#app{max-width:480px;margin:0 auto;min-height:100dvh;padding:0 20px 120px}
+.top{display:flex;justify-content:space-between;align-items:center;padding-top:20px;min-height:64px}
+.ib{width:44px;height:44px;border:0;border-radius:22px;background:transparent;display:flex;align-items:center;justify-content:center;padding:0}
+:focus-visible{outline:3px solid var(--bar);outline-offset:2px}
+h1{margin:0;font-size:34px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px;width:100%;text-align:left}
+button.card{cursor:pointer}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.t{font-size:24px}
+.mu{color:var(--mu);font-size:14px}
+.neg{color:var(--neg)}
+.bar{height:10px;border-radius:5px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--bar)}
+.seg{display:flex;height:12px;border-radius:6px;overflow:hidden;background:var(--line)}.seg i{display:block;height:100%}
+.dot{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:8px}
+.list{display:flex;flex-direction:column;gap:14px;margin-top:24px}
+.lbl{font-size:14px;letter-spacing:1px;text-transform:uppercase;color:var(--mu);font-weight:600}
+.logo{width:112px;height:112px;border-radius:56px;border:3px solid var(--bar);background:var(--card);color:var(--ortx);display:flex;align-items:center;justify-content:center;margin:28px auto 12px}
+.add{height:72px;border:2px dashed var(--bar);border-radius:24px;background:transparent;color:var(--ortx);font-size:24px;display:flex;align-items:center;justify-content:center;gap:8px}
+.ck{display:flex;align-items:center;gap:12px;min-height:44px;font-size:17px}
+.ck input{width:22px;height:22px;margin:0;accent-color:var(--bar)}
+nav{position:fixed;left:0;right:0;bottom:0;max-width:480px;margin:0 auto;padding:0 20px calc(24px + env(safe-area-inset-bottom,0px))}
+nav div{display:flex;gap:6px;padding:5px;height:64px;border-radius:32px;background:var(--card);border:1px solid var(--line)}
+.tab{flex:1;border:0;border-radius:26px;background:transparent;color:var(--mu);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:12px;font-weight:600;padding:0}
+.tab[aria-current="page"]{background:var(--or);color:var(--on)}
+.ov{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;padding:16px}
+.bd{position:absolute;inset:0;background:var(--shade);border:0;padding:0}
+.sh{position:relative;width:100%;max-width:440px;max-height:90dvh;overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:12px}
+.f{display:flex;align-items:center;gap:12px}
+.f span{width:84px;flex:none;color:var(--mu);font-size:16px}
+.f input,.f select{flex:1;min-width:0;background:transparent;border:0;border-bottom:2px solid var(--line);padding:8px 0;font-size:18px;font-weight:600;outline:none;border-radius:0}
+.f select option{background:var(--card)}
+.f input:focus,.f select:focus{border-bottom-color:var(--bar)}
+.btn{height:48px;border:0;border-radius:24px;background:var(--or);color:var(--on);font-weight:700;font-size:17px;padding:0 20px;display:flex;align-items:center;justify-content:center;text-decoration:none}
+.btn.g{background:transparent;color:var(--tx);border:1px solid var(--line)}
+.btn.x{background:transparent;color:var(--neg);border:1px solid var(--line)}
+.mn{display:flex;flex-direction:column;gap:10px}
+.nt{width:100%;background:transparent;border:1px solid var(--line);border-radius:12px;padding:10px;font-size:16px;resize:vertical;outline:none}
+details summary{cursor:pointer;color:var(--ortx);font-weight:600;padding:6px 0}
+.sg{margin-top:8px;font-size:15px}
+.pics{display:flex;flex-wrap:wrap;gap:8px}.pics div{position:relative}.pics img{width:92px;height:92px;object-fit:cover;border-radius:12px;border:1px solid var(--line);display:block;cursor:pointer}.pics button{position:absolute;top:4px;right:4px;width:28px;height:28px;border-radius:14px;border:0;background:var(--shade);color:#fff;font-size:18px;line-height:1;padding:0}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:110px;background:var(--tx);color:var(--bg);padding:10px 16px;border-radius:20px;font-size:14px;z-index:30}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+(function(){
+var KEY='marcenario.v3',ST=['Material','Corte','Acabamento','Montagem'],CAT=['Chapas (MDF)','Ferragens','Cola e parafusos','Ferramentas','Frete','Mão de obra','Outros'];
+var IC={menu:'<path d="M4 7h16M4 12h16M4 17h16"/>',home:'<path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/>',money:'<circle cx="12" cy="12" r="9"/><path d="M14.5 9.5C14 8.5 13 8 12 8c-1.5 0-2.5.8-2.5 2s1 1.7 2.5 2 2.5.8 2.5 2-1 2-2.5 2c-1 0-2-.5-2.5-1.5M12 6.5V8M12 16v1.5"/>',org:'<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM9 14l2 2 4-4"/>',chart:'<path d="M4 20V10M10 20V4M16 20v-7M2 20h20"/>',plus:'<path d="M12 5v14M5 12h14"/>'};
+function ico(k,s){return '<svg width="'+(s||24)+'" height="'+(s||24)+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+IC[k]+'</svg>'}
+var S={tab:'home',modal:null,d:{s:[],g:[]}};
+try{var raw=localStorage.getItem(KEY);if(raw)S.d=JSON.parse(raw)}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S.d));return 1}catch(e){say('Memória do navegador cheia. Remova algumas fotos antigas.')}}
+var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
+var brl=function(n){return (n||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})};
+var num=function(v){return parseFloat(String(v==null?'':v).replace(',','.'))||0};
+var sum=function(a,k){return a.reduce(function(t,x){return t+num(x[k])},0)};
+var $=function(i){return document.getElementById(i)};
+var find=function(a,id){return a.filter(function(x){return x.id===id})[0]};
+var fd=function(i){var p=(i||'').split('-');return p.length===3?p[2]+'/'+p[1]:'--/--'};
+var today=function(){return new Date().toISOString().slice(0,10)};
+var gd=function(id){return sum(S.d.g.filter(function(g){return g.sid===id}),'valor')};
+var pct=function(s){return s.done?100:s.steps.reduce(function(a,b){return a+b},0)*25};
+var title=function(s){return esc(s.client)+(s.item?' ('+esc(s.item)+')':'')};
+var bar=function(p){return '<div class="bar" role="progressbar" aria-valuenow="'+p+'" aria-valuemin="0" aria-valuemax="100"><i style="width:'+p+'%"></i></div>'};
+function say(t){var d=document.createElement('div');d.className='toast';d.setAttribute('role','status');d.textContent=t;document.body.appendChild(d);setTimeout(function(){d.remove()},1800)}
+function cfg(){return S.d.cfg||(S.d.cfg={fixo:300,pc:20,meta:0})}
+function concl(){var ym=today().slice(0,7);return S.d.s.filter(function(s){return s.done&&(s.fim||s.date||'').slice(0,7)===ym})}
+function metaCard(){var n=concl().length,m=cfg().meta,p=m?Math.min(100,Math.round(n/m*100)):0;
+return '<button type="button" class="card" data-act="meta" style="margin-top:4px"><span class="lbl">Meta de serviços do mês</span>'+(m?'<span class="d" style="font-size:56px;line-height:1">'+n+' <span style="font-size:28px;color:var(--mu)">de '+m+'</span></span>'+bar(p)+'<span class="mu">'+(n>=m?'Meta batida! 🎉 Já pode pagar o churrasco 🥩':'Faltam '+(m-n)+(m-n>1?' serviços':' serviço'))+'</span>':'<span class="d t">Toque para definir a meta</span><span class="mu">Quantos serviços você quer concluir este mês?</span>')+'</button>'}
+function mao(s){var b=num(s.mat)||sum(S.d.g.filter(function(g){return g.sid===s.id&&g.cat!=='Mão de obra'}),'valor');return b*num(s.cx||65)/100}
+function salTot(){var c=cfg();return num(c.fixo)+concl().reduce(function(t,s){return t+mao(s)*num(c.pc)/100},0)}
+function salCard(){var c=cfg(),fx=num(c.fixo),pc=num(c.pc),L=concl().map(function(s){return{n:title(s),v:mao(s)*pc/100}}).filter(function(x){return x.v>0}),tot=fx+L.reduce(function(t,x){return t+x.v},0),col=['var(--or)','var(--ok)','var(--bar)','var(--tx)'],
+w=function(v){return tot?v/tot*100:0},
+rw=function(cl,n,v){return '<div class="row" style="align-items:center"><span class="mu"><i class="dot" style="background:'+cl+'"></i>'+n+'</span><span class="mu"><b>'+brl(v)+'</b></span></div>'};
+return '<div class="card" style="margin-top:4px;padding:12px 16px"><details><summary style="cursor:pointer;display:flex;justify-content:space-between;font-weight:600;padding:2px 0"><span>Meu salário do mês</span><span>'+brl(tot)+'</span></summary><div style="display:flex;flex-direction:column;gap:8px;margin-top:10px"><div class="seg"><i style="width:'+w(fx)+'%;background:var(--mu)"></i>'+L.map(function(x,i){return '<i style="width:'+w(x.v)+'%;background:'+col[i%4]+'"></i>'}).join('')+'</div>'+rw('var(--mu)','Fixo',fx)+L.map(function(x,i){return rw(col[i%4],x.n,x.v)}).join('')+'<span class="mu">Comissão de '+pc+'% da mão de obra de cada serviço concluído no mês. A mão de obra vem da calculadora (material × complexidade); se o material não estiver preenchido, usa os gastos de material ligados ao serviço.</span><div style="display:flex;gap:8px"><button type="button" class="btn g" style="flex:1;height:40px" data-act="sal">Ajustar</button><button type="button" class="btn g" style="flex:1;height:40px" data-act="paysal">Lançar como gasto</button></div></div></details></div>'}
+function salOld(){var c=cfg(),B=sum(concl(),'valor'),fx=num(c.fixo),pc=num(c.pc),com=B*pc/100;
+return '<div class="card" style="margin-top:4px"><span class="lbl">Meu salário do mês</span><span class="d" style="font-size:44px;line-height:1">'+brl(fx+com)+'</span><div class="row"><span>Fixo</span><b>'+brl(fx)+'</b></div><div class="row"><span>Comissão de '+pc+'% sobre '+brl(B)+'</span><b>'+brl(com)+'</b></div><span class="mu">Conta só os serviços concluídos neste mês. Com 15%: '+brl(fx+B*.15)+' · com 25%: '+brl(fx+B*.25)+'</span><div style="display:flex;gap:8px"><button type="button" class="btn g" style="flex:1" data-act="sal">Ajustar</button><button type="button" class="btn" style="flex:1" data-act="paysal">Lançar como gasto</button></div></div>'}
+function top(t){return '<div class="top">'+(t?'<h1 class="d">'+t+'</h1>':'<span></span>')+'<button type="button" class="ib" data-act="menu" aria-label="Menu">'+ico('menu')+'</button></div>'}
+function card(s){var st=!s.ap?'Orçamento · aguardando resposta':s.done?'Finalizado':pct(s)+'% pronto · iniciado '+fd(s.date);
+return '<button type="button" class="card" data-act="edit" data-id="'+s.id+'"><span class="row"><span class="d t">'+title(s)+'</span><span class="d t">'+brl(s.valor)+'</span></span>'+(s.ap?bar(pct(s)):'')+'<span class="mu">'+st+(s.fotos&&s.fotos.length?' · '+s.fotos.length+(s.fotos.length>1?' fotos':' foto'):'')+'</span></button>'}
+function addBtn(act,l){return '<button type="button" class="add d" data-act="'+act+'">'+ico('plus')+l+'</button>'}
+function home(){var a=S.d.s.filter(function(s){return s.ap&&!s.done}),o=S.d.s.filter(function(s){return!s.ap});
+return top('')+metaCard()+'<div class="logo">'+ico('home',56)+'</div><div class="d" style="font-size:32px;text-align:center">Planejados Móveis</div><div class="list"><span class="lbl">Em andamento</span>'+(a.length?a.map(card).join(''):'<p class="mu" style="margin:0">Nenhum serviço em andamento.</p>')+(o.length?'<span class="lbl" style="margin-top:8px">Orçamentos esperando resposta</span>'+o.map(card).join(''):'')+(S.d.s.length?'':addBtn('new','Serviço'))+'</div>'}
+function serv(){return top('Serviços')+'<div class="list">'+S.d.s.map(card).join('')+addBtn('new','Serviço')+'</div>'}
+function gast(){var g=S.d.g.slice().sort(function(a,b){return a.data<b.data?1:-1});
+return top('Gastos')+salCard()+'<p class="mu" style="margin:16px 0 0">Total: <b>'+brl(sum(S.d.g,'valor'))+'</b></p><div class="list" style="margin-top:16px">'+g.map(function(x){var s=find(S.d.s,x.sid);
+return '<button type="button" class="card" data-act="editg" data-id="'+x.id+'"><span class="row"><span class="d t">'+esc(x.desc)+'</span><span class="d t">'+brl(x.valor)+'</span></span><span class="mu">'+fd(x.data)+' · '+x.cat+(s?' · '+esc(s.client):'')+'</span></button>'}).join('')+addBtn('newg','Gasto')+'</div>'}
+function resumo(){
+var A=S.d.s.filter(function(s){return s.ap}),O=S.d.s.filter(function(s){return!s.ap});
+var fat=sum(A,'valor'),lg=sum(S.d.g.filter(function(g){return g.cat==='Mão de obra'}),'valor'),est=A.reduce(function(t,s){return t+mao(s)},0),mo=Math.max(est,lg),mt=sum(S.d.g,'valor')-lg,so=fat-mt-mo,t=Math.max(fat,mt+mo)||1;
+var w=function(v){return Math.max(v,0)/t*100},p=function(v){return fat?Math.round(v/fat*100)+'%':'0%'};
+var r=function(c,n,v){return '<div class="row" style="align-items:center"><span><i class="dot" style="background:'+c+'"></i>'+n+'</span><span><b'+(v<0?' class="neg"':'')+'>'+brl(v)+'</b> <span class="mu">'+p(v)+'</span></span></div>'};
+return top('Resumo')+'<div class="list" style="margin-top:12px"><div class="card"><span class="lbl">Faturamento aprovado</span><span class="d" style="font-size:44px;line-height:1">'+brl(fat)+'</span><div class="seg"><i style="width:'+w(mt)+'%;background:var(--or)"></i><i style="width:'+w(mo)+'%;background:var(--mu)"></i><i style="width:'+w(so)+'%;background:var(--ok)"></i></div>'+r('var(--or)','Material e compras',mt)+r('var(--mu)','Mão de obra',mo)+r('var(--ok)','Sobra',so)+'<span class="mu">A mão de obra vem da calculadora de cada serviço aprovado (material × complexidade). Se você anotar mais que isso em Gastos, vale o maior valor. Sobra é o que resta depois de material e mão de obra.</span></div>'+
+'<div class="card"><span class="lbl">A receber</span><span class="d t">'+brl(fat-sum(A,'rec'))+'</span></div><div class="card"><span class="lbl">Orçamentos em aberto</span><span class="d t">'+O.length+' · '+brl(sum(O,'valor'))+'</span></div></div>'}
+function tabs(){var h='';[['serv','Serviços','org'],['home','Início','home'],['gast','Gastos','money'],['res','Resumo','chart']].forEach(function(t){h+='<button type="button" class="tab" data-act="tab" data-id="'+t[0]+'"'+(S.tab===t[0]?' aria-current="page"':'')+'>'+ico(t[2],22)+t[1]+'</button>'});return '<nav aria-label="Navegação"><div>'+h+'</div></nav>'}
+function shell(lbl,inner){return '<div class="ov"><button type="button" class="bd" data-act="close" aria-label="Fechar"></button><div class="sh" role="dialog" aria-modal="true" aria-label="'+lbl+'">'+inner+'</div></div>'}
+function f(l,n,v,ty,x){return '<label class="f"><span>'+l+'</span><input name="'+n+'" type="'+(ty||'text')+'" value="'+esc(v)+'" '+(ty==='number'?'inputmode="decimal" step="0.01" min="0" ':'')+(x||'')+'></label>'}
+function sl(l,n,o,v){return '<label class="f"><span>'+l+'</span><select name="'+n+'">'+o.map(function(x){return '<option value="'+esc(x[0])+'"'+(String(x[0])===String(v)?' selected':'')+'>'+esc(x[1])+'</option>'}).join('')+'</select></label>'}
+function modal(){var m=S.modal;if(!m)return '';
+if(m.t==='cad'){var s=m.id?find(S.d.s,m.id):{steps:[0,0,0,0],cx:65,mar:30},tel=String(s.tel||'').replace(/\D/g,'');
+return shell('Serviço','<h2 class="d t" style="margin:0">'+(m.id?title(s):'Novo serviço')+'</h2><form id="cf" class="mn">'+f('Cliente','client',s.client)+f('Telefone','tel',s.tel,'tel')+f('Serviço','item',s.item)+f('Início','date',s.date||today(),'date')+
+'<details><summary>Calcular preço do orçamento</summary>'+f('Material','mat',s.mat,'number')+sl('Mão de obra','cx',[[50,'Simples: 50% do material'],[65,'Média: 65% do material'],[80,'Complexa: 80% do material']],s.cx)+f('Margem %','mar',s.mar,'number')+'<div class="sg" id="sug"></div></details>'+
+f('Valor R$','valor',s.valor,'number')+f('Recebido','rec',s.rec,'number')+
+(m.id?'<span class="mu">Gastos ligados a este serviço: '+brl(gd(s.id))+' · Sobra: '+brl(num(s.valor)-gd(s.id))+'</span>':'')+
+'<label class="ck"><input type="checkbox" name="ap"'+(s.ap?' checked':'')+'>Orçamento aprovado</label>'+ST.map(function(n,i){return '<label class="ck"><input type="checkbox" name="s'+i+'"'+(s.steps[i]?' checked':'')+'>'+n+'</label>'}).join('')+'<label class="ck"><input type="checkbox" name="done"'+(s.done?' checked':'')+'>Finalizado</label>'+
+'<textarea class="nt" name="note" rows="3" placeholder="Anotações deste serviço">'+esc(s.note)+'</textarea><span class="lbl">Fotos do projeto</span><div class="pics" id="pics"></div><label class="btn g" style="cursor:pointer">Adicionar foto<input type="file" accept="image/*" id="pf" multiple hidden></label><button type="submit" class="btn">Salvar</button>'+
+(m.id?'<button type="button" class="btn g" data-act="copy" data-id="'+s.id+'">Copiar orçamento</button>'+(tel?'<a class="btn g" href="https://wa.me/55'+tel+'" target="_blank" rel="noopener">WhatsApp</a>':'')+'<button type="button" class="btn x" data-act="del" data-k="s" data-id="'+s.id+'">Excluir</button>':'')+'<button type="button" class="btn g" data-act="close">Cancelar</button></form>')}
+if(m.t==='cadg'){var g=m.id?find(S.d.g,m.id):{};
+return shell('Gasto','<h2 class="d t" style="margin:0">'+(m.id?'Editar gasto':'Novo gasto')+'</h2><form id="gf" class="mn">'+f('Data','data',g.data||today(),'date','required')+sl('Categoria','cat',CAT.map(function(c){return[c,c]}),g.cat)+f('Descrição','desc',g.desc,'text','required')+f('Valor R$','valor',g.valor,'number','required')+
+sl('Serviço','sid',[[0,'Gasto geral da oficina']].concat(S.d.s.map(function(s){return[s.id,s.client+(s.item?' – '+s.item:'')]})),g.sid||0)+'<button type="submit" class="btn">Salvar</button>'+(m.id?'<button type="button" class="btn x" data-act="del" data-k="g" data-id="'+g.id+'">Excluir</button>':'')+'<button type="button" class="btn g" data-act="close">Cancelar</button></form>')}
+if(m.t==='sal'){var c=cfg();return shell('Salário','<h2 class="d t" style="margin:0">Meu salário</h2><form id="sf" class="mn">'+f('Fixo R$','fixo',c.fixo,'number')+f('Comissão %','pc',c.pc,'number')+'<span class="mu">A comissão é um percentual da mão de obra de cada serviço concluído no mês.</span><button type="submit" class="btn">Salvar</button><button type="button" class="btn g" data-act="close">Cancelar</button></form>')}
+if(m.t==='meta')return shell('Meta','<h2 class="d t" style="margin:0">Meta do mês</h2><form id="mf" class="mn">'+f('Serviços','meta',cfg().meta,'number')+'<span class="mu">Quantos serviços concluídos você quer neste mês. Um serviço conta quando você marca Finalizado.</span><button type="submit" class="btn">Salvar</button><button type="button" class="btn g" data-act="close">Cancelar</button></form>')
+if(m.t==='menu')return shell('Menu','<h2 class="d t" style="margin:0">Menu</h2><button type="button" class="btn g" data-act="theme">Alternar tema claro/escuro</button><button type="button" class="btn g" data-act="demo">Carregar dados de exemplo</button><button type="button" class="btn x" data-act="reset">'+(S.arm?'Toque de novo para apagar tudo':'Apagar todos os dados')+'</button><button type="button" class="btn" data-act="close">Fechar</button>');
+return ''}
+function render(){var v={home:home,serv:serv,gast:gast,res:resumo}[S.tab]();
+$('app').innerHTML=v+tabs()+modal();
+if(S.modal&&S.fresh){var i=document.querySelector('.sh input,.sh button');if(i&&S.modal.t!=='cad'&&S.modal.t!=='cadg')i.focus()}
+S.fresh=false;sug();pics()}
+function sug(){var fm=$('cf'),b=$('sug');if(!fm||!b)return;var m=num(fm.mat.value),o=m*num(fm.cx.value)/100,v=(m+o)*(1+num(fm.mar.value)/100);
+b.innerHTML='Mão de obra estimada: <b>'+brl(o)+'</b><br>Preço sugerido: <b>'+brl(v)+'</b> <button type="button" class="btn g" style="height:36px;padding:0 14px;font-size:15px;display:inline-flex" data-act="usesug" data-v="'+v.toFixed(2)+'">Usar este valor</button>'}
+function open(m){if(m.t==='cad'){var o=m.id?find(S.d.s,m.id):null;S.pics=((o&&o.fotos)||[]).slice()}S.modal=m;S.fresh=true;render()}
+function demo(){var a=Date.now(),y=today().slice(0,8);
+S.d={s:[{id:a,client:'Marlene Souza',tel:'',item:'Cozinha planejada',date:y+'02',mat:4200,cx:65,mar:30,valor:8000,rec:4000,ap:true,steps:[1,1,0,0],done:false,note:''},{id:a+1,client:'Carlos Almeida',tel:'',item:'Painel de TV',date:y+'05',mat:600,cx:50,mar:30,valor:1200,rec:0,ap:false,steps:[0,0,0,0],done:false,note:''}],
+g:[{id:a+2,data:y+'03',cat:CAT[0],desc:'Chapas MDF 15mm',valor:3100,sid:a},{id:a+3,data:y+'05',cat:CAT[1],desc:'Dobradiças e corrediças',valor:780,sid:a},{id:a+4,data:y+'06',cat:CAT[5],desc:'Ajudante da semana',valor:900,sid:a},{id:a+5,data:y+'04',cat:CAT[4],desc:'Frete de material',valor:150,sid:0}]}}
+document.addEventListener('click',function(e){var a=e.target.closest('[data-act]');if(!a)return;var c=a.dataset.act,id=Number(a.dataset.id);
+if(c==='tab'){S.tab=a.dataset.id;render();scrollTo(0,0)}
+else if(c==='menu')open({t:'menu'});
+else if(c==='new')open({t:'cad',id:null});
+else if(c==='edit')open({t:'cad',id:id});
+else if(c==='newg')open({t:'cadg',id:null});
+else if(c==='editg')open({t:'cadg',id:id});
+else if(c==='close'){S.modal=null;S.arm=0;render()}
+else if(c==='zoom'){var z=document.createElement('div');z.style.cssText='position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;padding:12px';z.innerHTML='<img src="'+S.pics[Number(a.dataset.i)]+'" alt="Foto do projeto" style="max-width:100%;max-height:100%;border-radius:8px">';z.onclick=function(){z.remove()};document.body.appendChild(z)}
+else if(c==='rmpic'){S.pics.splice(Number(a.dataset.i),1);pics()}
+else if(c==='meta')open({t:'meta'});
+else if(c==='sal')open({t:'sal'});
+else if(c==='paysal'){var ym=today().slice(0,7),cg=cfg(),tot=salTot(),pg=S.d.g.filter(function(x){return x.sal===ym})[0];
+ if(pg){pg.valor=tot;pg.data=today()}else S.d.g.push({id:Date.now(),data:today(),cat:'Mão de obra',desc:'Salário do mês',valor:tot,sid:0,sal:ym});
+ if(save()){render();say(pg?'Salário do mês atualizado nos gastos':'Salário lançado em Gastos')}}
+else if(c==='usesug'){document.querySelector('#cf [name=valor]').value=a.dataset.v}
+else if(c==='copy'){var s=find(S.d.s,id),tx='Orçamento para '+s.client+'\n'+s.item+'\nValor: '+brl(num(s.valor))+'\nEntrada de 50% para iniciar: '+brl(num(s.valor)/2)+'\nValidade: 7 dias.';
+ try{navigator.clipboard.writeText(tx).then(function(){say('Orçamento copiado')},function(){prompt('Copie o orçamento:',tx)})}catch(x){prompt('Copie o orçamento:',tx)}}
+else if(c==='del'){if(!a.dataset.arm){a.dataset.arm=1;a.textContent='Toque de novo para excluir'}else{var k=a.dataset.k;S.d[k]=S.d[k].filter(function(x){return x.id!==id});if(k==='s')S.d.g.forEach(function(g){if(g.sid===id)g.sid=0});save();S.modal=null;render();say('Excluído')}}
+else if(c==='theme'){var r=document.documentElement,d=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.dataset.theme=d?'light':'dark'}
+else if(c==='demo'){demo();save();S.modal=null;render()}
+else if(c==='reset'){if(!S.arm){S.arm=1;render()}else{S.arm=0;S.d={s:[],g:[]};save();S.modal=null;render()}}});
+document.addEventListener('submit',function(e){e.preventDefault();var fm=new FormData(e.target),m=S.modal;
+if(e.target.id==='cf'){var s=m.id?find(S.d.s,m.id):null;if(!s){s={id:Date.now()};S.d.s.push(s)}
+s.client=(fm.get('client')||'').trim()||'Sem nome';s.tel=fm.get('tel')||'';s.item=(fm.get('item')||'').trim();s.date=fm.get('date')||today();
+['mat','mar','valor','rec'].forEach(function(k){s[k]=num(fm.get(k))});s.cx=Number(fm.get('cx'));s.note=fm.get('note')||'';s.fotos=S.pics.slice();
+s.done=fm.has('done');s.ap=fm.has('ap');s.steps=ST.map(function(n,i){return fm.has('s'+i)?1:0});
+if(s.done)s.steps=[1,1,1,1];if(s.done&&!s.fim)s.fim=today();if(!s.done)s.fim='';if(s.done||s.steps.some(function(x){return x}))s.ap=true}
+else if(e.target.id==='gf'){var g=m.id?find(S.d.g,m.id):null;if(!g){g={id:Date.now()};S.d.g.push(g)}
+g.data=fm.get('data');g.cat=fm.get('cat');g.desc=(fm.get('desc')||'').trim()||'Gasto';g.valor=num(fm.get('valor'));g.sid=Number(fm.get('sid'))||0}
+else if(e.target.id==='sf'){var c=cfg();c.fixo=num(fm.get('fixo'));c.pc=num(fm.get('pc'))}
+else if(e.target.id==='mf'){cfg().meta=Math.round(num(fm.get('meta')))}
+var ok=save();S.modal=null;render();if(ok)say('Salvo')});
+function pics(){var p=$('pics');if(!p)return;p.innerHTML=(S.pics||[]).map(function(u,i){return '<div><img src="'+u+'" alt="Foto '+(i+1)+' do projeto" data-act="zoom" data-i="'+i+'"><button type="button" data-act="rmpic" data-i="'+i+'" aria-label="Remover foto">×</button></div>'}).join('')}
+function shrink(file,cb){var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){var k=Math.min(1,900/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);cb(c.toDataURL('image/jpeg',.6))};im.onerror=function(){say('Não consegui abrir essa imagem')};im.src=r.result};r.readAsDataURL(file)}
+document.addEventListener('change',function(e){if(e.target.id!=='pf')return;Array.prototype.forEach.call(e.target.files,function(f){if(S.pics.length>=6){say('Máximo de 6 fotos por serviço');return}shrink(f,function(u){if(S.pics.length>=6)return;S.pics.push(u);pics()})});e.target.value=''});
+document.addEventListener('input',function(e){if(e.target.form&&e.target.form.id==='cf')sug()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&S.modal){S.modal=null;S.arm=0;render()}});
+render();
+})();
+</script>
+</body>
+</html>
